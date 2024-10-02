@@ -57,17 +57,18 @@ export default function App() {
   return (
     <>
       <NavBar>
-        <Logo />
         <Search />
         <NumResults movies={movies} />
       </NavBar>
+
       <Main>
         <Box>
           <MovieList movies={movies} />
         </Box>
+
         <Box>
           <WatchedSummary watched={watched} />
-          <WatchedMovieList watched={watched} />{" "}
+          <WatchedMoviesList watched={watched} />
         </Box>
       </Main>
     </>
@@ -75,7 +76,21 @@ export default function App() {
 }
 
 function NavBar({ children }) {
-  return <nav className="nav-bar">{children}</nav>;
+  return (
+    <nav className="nav-bar">
+      <Logo />
+      {children}
+    </nav>
+  );
+}
+
+function Logo() {
+  return (
+    <div className="logo">
+      <span role="img">🍿</span>
+      <h1>usePopcorn</h1>
+    </div>
+  );
 }
 
 function Search() {
@@ -89,15 +104,6 @@ function Search() {
       value={query}
       onChange={(e) => setQuery(e.target.value)}
     />
-  );
-}
-
-function Logo() {
-  return (
-    <div className="logo">
-      <span role="img">🍿</span>
-      <h1>usePopcorn</h1>
-    </div>
   );
 }
 
@@ -127,27 +133,30 @@ function Box({ children }) {
   );
 }
 
-// function WatchedBox() {
-//   const [watched, setWatched] = useState(tempWatchedData);
-//   const [isOpen2, setIsOpen2] = useState(true);
+/*
+function WatchedBox() {
+  const [watched, setWatched] = useState(tempWatchedData);
+  const [isOpen2, setIsOpen2] = useState(true);
 
-//   return (
-//     <div className="box">
-//       <button
-//         className="btn-toggle"
-//         onClick={() => setIsOpen2((open) => !open)}
-//       >
-//         {isOpen2 ? "–" : "+"}
-//       </button>
-//       {isOpen2 && (
-//         <>
-//           <WatchedSummary watched={watched} />
-//           <WatchedMovieList watched={watched} />
-//         </>
-//       )}
-//     </div>
-//   );
-// }
+  return (
+    <div className="box">
+      <button
+        className="btn-toggle"
+        onClick={() => setIsOpen2((open) => !open)}
+      >
+        {isOpen2 ? "–" : "+"}
+      </button>
+
+      {isOpen2 && (
+        <>
+          <WatchedSummary watched={watched} />
+          <WatchedMoviesList watched={watched} />
+        </>
+      )}
+    </div>
+  );
+}
+*/
 
 function MovieList({ movies }) {
   return (
@@ -204,7 +213,7 @@ function WatchedSummary({ watched }) {
   );
 }
 
-function WatchedMovieList({ watched }) {
+function WatchedMoviesList({ watched }) {
   return (
     <ul className="list">
       {watched.map((movie) => (
